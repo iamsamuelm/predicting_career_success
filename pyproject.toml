@@ -1,0 +1,32 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "Week 10"
+version = "0.0.1"
+description = "The code builds and tunes deep learning models using Keras Tuner to predict career satisfaction and starting salary based on academic performance, skills, and networking data, optimizing hyperparameters for accuracy."
+authors = [
+  { name = "Samuel S. Muma" },
+]
+
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    
+]
+requires-python = "==3.13.2"
+
+
+[tool.ruff]
+line-length = 99
+src = ["Week 10"]
+include = ["pyproject.toml", "Week 10/**/*.py"]
+
+[tool.ruff.lint]
+extend-select = ["I"]  # Add import sorting
+
+[tool.ruff.lint.isort]
+known-first-party = ["Week 10"]
+force-sort-within-sections = true
+
