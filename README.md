@@ -57,6 +57,75 @@ venv\Scripts\activate     # For Windows
 pip install -r requirements.txt
 ```
 
+## 🛠️ Running the Data Processing Pipeline
+1. Make sure education_career_success.csv is placed in the project directory.
+2. Run the data processing script:
+
+```
+python features.py
+```
+
+This script
+
+- Handles outliers
+- Encodes categorical features
+- Engineers new features
+- Scales numerical features
+- Selects top features for model training
+- Exports processed data to `.csv`
+
+## 🧠 Evaluating Models
+
+After data preprocessing, run the model training script:
+
+```
+python train.py
+```
+
+This will: 
+
+- Train predictive models for both Career Satisfaction and Starting Salary
+- Use train/test splits for evaluation
+- Output metrics like MAE, RMSE, and R²
+- Generate performance visualizations
+
+## 🔁 Reproducing Results
+
+To reproduce all results from scratch: 
+
+```
+python features.py
+python predict.py
+```
+
+Make sure: 
+
+- `education_career_success.csv` is in the root directory
+- Your environment includes all required packages
+- You are using a consistent random seed (`random_state=42` is set for reproducibility)
+
+## 📊 Visualizations
+
+To get initial data visualizations, run:
+
+```
+python plots.py
+```
+
+This creates: 
+
+- Correlation heatmaps
+- Distributions of target variables
+- Boxplots grouped by field of study
+- Scatter plots for key features vs outcomes
+
+## 💡 Key Takeaways
+
+This project provides data-driven insights into which factors most influence early career outcomes. The results empower stakeholders to invest effort in areas with the highest long-term ROI—academically and professionally. 
+
+** The code in these files has to be updated. These instructions are for when I do.**
+
+
 ## Project Organization
 
 ```
