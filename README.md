@@ -16,6 +16,47 @@ This project uses predictive analytics to explore how academic performance, inte
 
 The results offer actionable insights to help students, career advisors, and educators optimize educational and career development strategies.
 
+## 📦 Dependencies
+
+This project requires the following Python packages:
+
+- `pandas`
+- `numpy`
+- `scikit-learn`
+- `seaborn`
+- `matplotlib`
+- `tensorflow`
+- `keras-tuner`
+
+You can install them all using:
+
+```bash
+pip install -r requirements.txt
+```
+
+## ⚙️ Environment Setup
+
+1. Clone the repository
+   
+```
+git clone https://github.com/iamsamuelm/predicting_career_success.git
+cd predicting_career_success
+```
+
+2. (Optional) Create and activaet a virtual environment
+
+```
+python -m venv venv
+source venv/bin/activate  # For Mac/Linux
+venv\Scripts\activate     # For Windows
+```
+
+3. Install dependcies
+
+```
+pip install -r requirements.txt
+```
+
 ## Project Organization
 
 ```
@@ -68,23 +109,3 @@ The results offer actionable insights to help students, career advisors, and edu
 ```
 
 --------
-
-## 📦 Dependencies
-
-This project requires the following Python packages:
-
-- `pandas`
-- `numpy`
-- `scikit-learn`
-- `seaborn`
-- `matplotlib`
-- `tensorflow`
-- `keras-tuner`
-
-You can install them all using:
-
-```bash
-pip install -r requirements.txt
-```
-
-
