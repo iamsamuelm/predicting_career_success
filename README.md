@@ -69,3 +69,22 @@ The results offer actionable insights to help students, career advisors, and edu
 
 --------
 
+## 📦 Dependencies
+
+This project requires the following Python packages:
+
+- `pandas`
+- `numpy`
+- `scikit-learn`
+- `seaborn`
+- `matplotlib`
+- `tensorflow`
+- `keras-tuner`
+
+You can install them all using:
+
+```bash
+pip install -r requirements.txt
+```
+
+
