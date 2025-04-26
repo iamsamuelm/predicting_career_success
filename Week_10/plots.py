@@ -13,7 +13,6 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-
 from Week_10.config import FIGURES_DIR, PROCESSED_DATA_DIR
 
 app = typer.Typer()
@@ -41,6 +40,8 @@ def main(
     msno.matrix(df)
     plt.title("Missing Values Matrix")
     plt.show()
+    plt.savefig(output_path)
+    plt.close()
     
     # Initial correlation heatmap
     df_numeric = df.apply(pd.to_numeric, errors='coerce')
@@ -48,6 +49,8 @@ def main(
     sns.heatmap(df_numeric.corr(), annot=True, cmap='coolwarm', linewidths=0.5)
     plt.title('Correlation Heatmap')
     plt.show()
+    plt.savefig(output_path)
+    plt.close()
 
     # Find outliers using Boxplots
     numeric_columns = ['Age', 'High_School_GPA', 'SAT_Score', 'University_Ranking',
@@ -71,6 +74,8 @@ def main(
         fig.delaxes(axes[j])
     plt.tight_layout()
     plt.show()
+    plt.savefig(output_path)
+    plt.close()
 
     # Finding relationships using bar plots
     num_cols = 4
@@ -86,6 +91,8 @@ def main(
         fig.delaxes(axes[j])
     plt.tight_layout()
     plt.show()
+    plt.savefig(output_path)
+    plt.close()
 
     # Distribution of categorical variables
     categorical_features = df.select_dtypes(include=['object']).columns
@@ -105,6 +112,8 @@ def main(
     
     plt.tight_layout()
     plt.show()
+    plt.savefig(output_path)
+    plt.close()
 
 if __name__ == "__main__":
     app()
