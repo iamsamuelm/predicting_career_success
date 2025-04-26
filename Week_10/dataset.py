@@ -15,7 +15,7 @@ app = typer.Typer()
 @app.command()
 def main(
     input_path: Path = RAW_DATA_DIR / "/Users/samuelbond/Documents/INST414/Semester Project/education_career_success.csv",
-    output_path: Path = PROCESSED_DATA_DIR / "/Users/samuelbond/Documents/INST414/Semester Project/predicting_career_success/education_career_success.csv",
+    output_path: Path = PROCESSED_DATA_DIR / "/Users/samuelbond/Documents/INST414/Semester Project/predicting_career_success/data/processed/education_career_success.csv",
 ):
     logger.info(f"Reading data from {input_path}")
     try:
@@ -45,8 +45,6 @@ def main(
         df.to_csv(output_path, index=False)
     except FileNotFoundError:
         logger.error(f"File not found: {input_path}")
-    except Exception as e:
-        logger.error(f"An error occurred: {e}")
 
 
 if __name__ == "__main__":
