@@ -20,6 +20,7 @@ def main(
     input_path: Path = PROCESSED_DATA_DIR / "education_career_success.csv",
     output_path: Path = PROCESSED_DATA_DIR / "education_career_features.csv",
 ):
+    logger.info("Starting feature engineering...")
     # ---- Feature Engineering ---- #
     # Read the CSV file
     df = pd.read_csv(input_path)
@@ -62,9 +63,32 @@ def main(
     calculate_vif(X[cols_to_scale])
     X.head(5)
 
-    # Step 7: Save the processed data
-    X.to_csv(output_path, index=False)
-    logger.info(f"Processed data saved to {output_path}")
+    # Step 8: Create Academic Performance Score
+    df['Academic_Performance'] = df[['University_Ranking', 'University_GPA']].mean(axis=1)
+
+    # Step 9: Create Extracurricular Score
+    df['Extracurricular_Score'] = df[['Internships_Completed', 'Projects_Completed', 
+                                      'Soft_Skills_Score', 'Networking_Score']].mean(axis=1)
+    
+    # Step 10: Create Composite Career Success Score
+    df['Career_Success_Score'] = (0.4 * df['Starting_Salary'] +
+                                  0.3 * df['Job_Offers'] + 
+                                  0.2 * df['Career_Satisfaction'] + 
+                                  0.2 * (1 - df['Years_to_Promotion']))
+    
+    # Step 11: Drop original columns
+    df_refined = df.drop(columns=['University_Ranking', 'University_GPA', 
+                                'Internships_Completed', 'Projects_Completed', 
+                                'Soft_Skills_Score', 'Networking_Score', 
+                                'Starting_Salary', 'Job_Offers', 
+                                'Years_to_Promotion'])
+    
+    df['Career_Success_Score'].describe()
+    
+    # Step 12: Save the processed data
+    df_refined.to_csv(output_path, index=False)
+    print(f"Processed data saved to {output_path}")
+    logger.success("Feature engineering completed successfully.")
 
 
 if __name__ == "__main__":
