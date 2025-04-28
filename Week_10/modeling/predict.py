@@ -3,8 +3,10 @@ from pathlib import Path
 from loguru import logger
 from tqdm import tqdm
 import typer
+import sys
 
-from Week_10.config import MODELS_DIR, PROCESSED_DATA_DIR
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+from config import MODELS_DIR, PROCESSED_DATA_DIR
 
 app = typer.Typer()
 
@@ -12,7 +14,7 @@ app = typer.Typer()
 @app.command()
 def main(
     # ---- REPLACE DEFAULT PATHS AS APPROPRIATE ----
-    features_path: Path = PROCESSED_DATA_DIR / "test_features.csv",
+    features_path: Path = PROCESSED_DATA_DIR / "education_career_features.csv",
     model_path: Path = MODELS_DIR / "model.pkl",
     predictions_path: Path = PROCESSED_DATA_DIR / "test_predictions.csv",
     # -----------------------------------------

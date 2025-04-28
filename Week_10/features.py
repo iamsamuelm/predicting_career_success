@@ -39,9 +39,10 @@ def main(
     df[categorical_cols] = df[categorical_cols].fillna("Unknown")
 
     # Step 3: Identify the target variable
-    X = df.drop('Work_Life_Balance', axis='columns')
-    y = df['Work_Life_Balance']
-
+    X = df.copy()
+    if 'Work_Life_Balance' not in X.columns:
+        X['Work_Life_Balance'] = 0 
+    
     # Step 4: One-hot encoding for categorical variables
     X = pd.get_dummies(X, columns=categorical_cols, drop_first=True)
 
@@ -60,6 +61,10 @@ def main(
     
     calculate_vif(X[cols_to_scale])
     X.head(5)
+
+    # Step 7: Save the processed data
+    X.to_csv(output_path, index=False)
+    logger.info(f"Processed data saved to {output_path}")
 
 
 if __name__ == "__main__":
