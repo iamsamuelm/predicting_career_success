@@ -64,16 +64,19 @@ def main(
     X.head(5)
 
     # Step 8: Create Academic Performance Score
-    df['Academic_Performance'] = df[['University_Ranking', 'University_GPA']].mean(axis=1)
-
+    df['Academic_Performance'] = (0.4 * df['University_Ranking'] + 
+                                   0.6 * df['University_GPA'])
+    
     # Step 9: Create Extracurricular Score
-    df['Extracurricular_Score'] = df[['Internships_Completed', 'Projects_Completed', 
-                                      'Soft_Skills_Score', 'Networking_Score']].mean(axis=1)
+    df['Extracurricular_Score'] = (0.5 * df['Internships_Completed'] + 
+                                    0.5 * df['Projects_Completed'] + 
+                                    0.3 * df['Soft_Skills_Score'] + 
+                                    0.2 * df['Networking_Score'])
     
     # Step 10: Create Composite Career Success Score
-    df['Career_Success_Score'] = (0.4 * df['Starting_Salary'] +
-                                  0.3 * df['Job_Offers'] + 
-                                  0.2 * df['Career_Satisfaction'] + 
+    df['Career_Success_Score'] = (0.5 * df['Starting_Salary'] +
+                                  0.5 * df['Job_Offers'] + 
+                                  0.3 * df['Career_Satisfaction'] + 
                                   0.2 * (1 - df['Years_to_Promotion']))
     
     # Step 11: Drop original columns
@@ -82,9 +85,7 @@ def main(
                                 'Soft_Skills_Score', 'Networking_Score', 
                                 'Starting_Salary', 'Job_Offers', 
                                 'Years_to_Promotion'])
-    
-    df['Career_Success_Score'].describe()
-    
+        
     # Step 12: Save the processed data
     df_refined.to_csv(output_path, index=False)
     print(f"Processed data saved to {output_path}")
