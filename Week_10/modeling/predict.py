@@ -180,7 +180,7 @@ def main(
                 break
 
     # Step 11: Load the best model & evaluate
-    model.load_state_dict(torch.load(MODELS_DIR / "career_success_nn_model.pth"))
+    model.load_state_dict(torch.load(MODELS_DIR / "pytorch_neural_network.pth"))
 
     model.eval()
     with torch.no_grad():
@@ -193,6 +193,51 @@ def main(
     print(f"R^2 Score: {r2_score(y_test, y_pred_nn):.2f}")
 
     logger.success("Neural Network training completed.")
+
+    # === Visualizing the Results === #
+    # Neural Network Predictions
+    plt.figure(figsize=(8, 6))
+    plt.scatter(y_test, y_pred_nn, alpha=0.5)
+    plt.plot([0, 1], [0, 1], 'r--')
+    plt.xlabel("True Values")
+    plt.ylabel("Predicted Values")
+    plt.title("Neural Network: Predicted vs True Values")
+    plt.grid(True)
+    plt.show()
+
+    # Lasso Regression Predictions
+    plt.figure(figsize=(8, 6))
+    plt.scatter(y_test, y_pred_lasso, alpha=0.5)
+    plt.plot([0, 1], [0, 1], 'r--')
+    plt.xlabel("True Values")
+    plt.ylabel("Predicted Values")
+    plt.title("Lasso Regression: Predicted vs True Values")
+    plt.grid(True)
+    plt.show()
+
+    # Gradient Boosting Predictions
+    plt.figure(figsize=(8, 6))
+    plt.scatter(y_test, y_pred_gbm, alpha=0.5)
+    plt.plot([0, 1], [0, 1], 'r--')
+    plt.xlabel("True Values")
+    plt.ylabel("Predicted Values")
+    plt.title("Gradient Boosting: Predicted vs True Values")
+    plt.grid(True)
+    plt.show()
+
+    # Learning Curve (Neural Network)
+    plt.figure(figsize=(8, 6))
+    plt.plot(range(1, len(train_losses) + 1), train_losses, label='Train Loss')
+    plt.plot(range(1, len(val_losses) + 1), val_losses, label='Validation Loss')
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.title("Learning Curve")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+    
+        
+
 
 
 if __name__ == "__main__":
