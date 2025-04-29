@@ -35,22 +35,23 @@ def main(
     # ---- EDA Storytelling ---- #
     # Read the CSV file
     df = pd.read_csv(input_path)
+    df.drop(columns=['Student_ID'], inplace=True)
+    print("Column 'Student_ID' has been dropped.")
 
     # Visualize missing values
     msno.matrix(df)
     plt.title("Missing Values Matrix")
+    plt.tight_layout()
     plt.show()
-    plt.savefig(output_path)
-    plt.close()
-    
+
     # Initial correlation heatmap
     df_numeric = df.apply(pd.to_numeric, errors='coerce')
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(15, 8))
     sns.heatmap(df_numeric.corr(), annot=True, cmap='coolwarm', linewidths=0.5)
     plt.title('Correlation Heatmap')
-    plt.show()
+    plt.tight_layout()
     plt.savefig(output_path)
-    plt.close()
+    plt.show()
 
     # Find outliers using Boxplots
     numeric_columns = ['Age', 'High_School_GPA', 'SAT_Score', 'University_Ranking',
@@ -73,9 +74,8 @@ def main(
     for j in range(i + 1, len(axes)): # Remove empty subplots
         fig.delaxes(axes[j])
     plt.tight_layout()
-    plt.show()
     plt.savefig(output_path)
-    plt.close()
+    plt.show()
 
     # Finding relationships using bar plots
     num_cols = 4
@@ -84,15 +84,14 @@ def main(
     axes = axes.flatten()
 
     for i, col in enumerate(numeric_columns): # Loop through numeric columns and create bar plots
-        sns.histplot(df[col], ax=axes[i], kde=True)
-        axes[i].set_title(f'Bar Plot of {col}')       
+        sns.histplot(x=df[col], ax=axes[i], kde=True)
+        axes[i].set_title(f'Bar Plot of {col}')
 
     for j in range(i + 1, len(axes)): # Remove empty subplots
         fig.delaxes(axes[j])
     plt.tight_layout()
-    plt.show()
     plt.savefig(output_path)
-    plt.close()
+    plt.show()
 
     # Distribution of categorical variables
     categorical_features = df.select_dtypes(include=['object']).columns
@@ -111,9 +110,9 @@ def main(
         plt.title(f'Distribution of {col}')
     
     plt.tight_layout()
-    plt.show()
     plt.savefig(output_path)
-    plt.close()
+    plt.show()
+    
 
 if __name__ == "__main__":
     app()

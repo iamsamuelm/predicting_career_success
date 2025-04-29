@@ -3,6 +3,7 @@ from pathlib import Path
 from loguru import logger
 from tqdm import tqdm
 import pandas as pd
+import numpy as np
 import typer
 import sys
 from pathlib import Path
@@ -39,13 +40,15 @@ def main(
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
     df[categorical_cols] = df[categorical_cols].fillna("Unknown")
 
-    # Step 3: Identify the target variable
+    # Step 3: Place any missing values back
     X = df.copy()
     if 'Work_Life_Balance' not in X.columns:
         X['Work_Life_Balance'] = 0 
     
     # Step 4: One-hot encoding for categorical variables
     X = pd.get_dummies(X, columns=categorical_cols, drop_first=True)
+    df = pd.get_dummies(df, columns=['Field_of_Study'], drop_first=True)
+    df['Entrepreneur'] = df['Entrepreneurship'].apply(lambda x: 1 if x == 'Yes' else 0)
 
     # Step 5: Feature scaling
     cols_to_scale = X.select_dtypes(include=['int64', 'float64']).columns
@@ -63,6 +66,16 @@ def main(
     calculate_vif(X[cols_to_scale])
     X.head(5)
 
+    # Step 7: Transformations to reduce outliers in Starting Salary
+    df['Log_Starting_Salary'] = np.log1p(df['Starting_Salary'])
+
+    # Find 1st and 99th percentiles
+    lower_bound = df['Log_Starting_Salary'].quantile(0.01)
+    upper_bound = df['Log_Starting_Salary'].quantile(0.99)
+
+    # Cap the values
+    df['Capped_Starting_Salary'] = df['Log_Starting_Salary'].clip(lower=lower_bound, upper=upper_bound)
+
     # Step 8: Create Academic Performance Score
     df['Academic_Performance'] = (0.4 * df['University_Ranking'] + 
                                    0.6 * df['University_GPA'])
@@ -74,7 +87,7 @@ def main(
                                     0.2 * df['Networking_Score'])
     
     # Step 10: Create Composite Career Success Score
-    df['Career_Success_Score'] = (0.5 * df['Starting_Salary'] +
+    df['Career_Success_Score'] = (0.5 * df['Capped_Starting_Salary'] +
                                   0.5 * df['Job_Offers'] + 
                                   0.3 * df['Career_Satisfaction'] + 
                                   0.2 * (1 - df['Years_to_Promotion']))
