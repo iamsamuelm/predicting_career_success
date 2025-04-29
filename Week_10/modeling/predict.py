@@ -11,6 +11,7 @@ import seaborn as sns
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from joblib import dump, load
 from torch.utils.data import DataLoader, TensorDataset, random_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.model_selection import train_test_split, GridSearchCV
@@ -62,6 +63,10 @@ def main(
     print(f"Mean Absolute Error: {mean_absolute_error(y_test, y_pred_lasso):.2f}")
     print(f"Mean Squared Error: {mean_squared_error(y_test, y_pred_lasso):.2f}")
     print(f"R^2 Score: {r2_score(y_test, y_pred_lasso):.2f}")
+
+    # Save the model
+    dump(lasso, MODELS_DIR / "lasso_regression_model.joblib")
+    print("Lasso Regression model saved.")
     
     logger.success("Lasso Regression training completed.")
     logger.info("Training Gradient Boosting Regressor...")
@@ -86,6 +91,10 @@ def main(
     print(f"Mean Absolute Error: {mean_absolute_error(y_test, y_pred_gbm):.2f}")
     print(f"Mean Squared Error: {mean_squared_error(y_test, y_pred_gbm):.2f}")
     print(f"R^2 Score: {r2_score(y_test, y_pred_gbm):.2f}")
+
+    # Save the model
+    dump(best_model, MODELS_DIR / "gradient_boosting_regressor.joblib")
+    print("Gradient Boosting Regressor model saved.")
     
     logger.success("Gradient Boosting Regressor training completed.")
     logger.info("Training PyTorch Neural Network...")
@@ -163,7 +172,7 @@ def main(
         if avg_val_loss < best_val_loss:
             best_val_loss = avg_val_loss
             patience_counter = 0
-            torch.save(model.state_dict(), MODELS_DIR / "career_success_nn_model.pth")
+            torch.save(model.state_dict(), MODELS_DIR / "pytorch_neural_network.pth")
         else:
             patience_counter += 1
             if patience_counter >= early_stopping_patience:
