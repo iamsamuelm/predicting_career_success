@@ -34,7 +34,7 @@ def main(
     df = pd.read_csv(features_path)
 
     # Step 2: Selecting features and target variable
-    features = ['Academic_Performance', 'Extracurricular_Score', 'Career_Satisfaction', 'Work_Life_Balance', 
+    features = ['Academic_Performance', 'Extracurricular_Score', 'Work_Life_Balance', 
                 'Field_of_Study_Business', 'Field_of_Study_Computer Science', 'Field_of_Study_Engineering', 'Field_of_Study_Law', 
                 'Field_of_Study_Mathematics', 'Field_of_Study_Medicine', 'Entrepreneur']
     
@@ -135,7 +135,7 @@ def main(
     # Step 9: Define loss and optimizer
     model = CareerSuccessNN()
     criterion = nn.MSELoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+    optimizer = optim.Adam(model.parameters(), lr=0.0005)
 
     # Step 10: Train the model
     num_epochs = 100
@@ -168,6 +168,10 @@ def main(
         avg_val_loss = np.mean(val_losses)
         print(f"Epoch [{epoch+1}/{num_epochs}], Train Loss: {avg_train_loss:.4f}, Val Loss: {avg_val_loss:.4f}")
 
+        def moving_average(values, window_size):
+            weights = np.repeat(1.0, window_size) / window_size
+            return np.convolve(values, weights, 'valid')
+
         # Early stopping
         if avg_val_loss < best_val_loss:
             best_val_loss = avg_val_loss
@@ -195,48 +199,59 @@ def main(
     logger.success("Neural Network training completed.")
 
     # === Visualizing the Results === #
-    # Neural Network Predictions
-    plt.figure(figsize=(8, 6))
-    plt.scatter(y_test, y_pred_nn, alpha=0.5)
-    plt.plot([0, 1], [0, 1], 'r--')
-    plt.xlabel("True Values")
-    plt.ylabel("Predicted Values")
-    plt.title("Neural Network: Predicted vs True Values")
-    plt.grid(True)
-    plt.show()
+    # Neural Network: Learning Curve
+    window_size = 5
 
-    # Lasso Regression Predictions
     plt.figure(figsize=(8, 6))
-    plt.scatter(y_test, y_pred_lasso, alpha=0.5)
-    plt.plot([0, 1], [0, 1], 'r--')
-    plt.xlabel("True Values")
-    plt.ylabel("Predicted Values")
-    plt.title("Lasso Regression: Predicted vs True Values")
-    plt.grid(True)
-    plt.show()
-
-    # Gradient Boosting Predictions
-    plt.figure(figsize=(8, 6))
-    plt.scatter(y_test, y_pred_gbm, alpha=0.5)
-    plt.plot([0, 1], [0, 1], 'r--')
-    plt.xlabel("True Values")
-    plt.ylabel("Predicted Values")
-    plt.title("Gradient Boosting: Predicted vs True Values")
-    plt.grid(True)
-    plt.show()
-
-    # Learning Curve (Neural Network)
-    plt.figure(figsize=(8, 6))
-    plt.plot(range(1, len(train_losses) + 1), train_losses, label='Train Loss')
-    plt.plot(range(1, len(val_losses) + 1), val_losses, label='Validation Loss')
+    plt.plot(moving_average(train_losses, window_size), label="Training Loss (Smoothed)")
+    plt.plot(moving_average(val_losses, window_size), label="Validation Loss (Smoothed)")
     plt.xlabel("Epochs")
     plt.ylabel("Loss")
     plt.title("Learning Curve")
     plt.legend()
     plt.grid(True)
     plt.show()
+
+    # Correlation Heatmap: Inputs vs Target 
+    features = ['Academic_Performance', 'Extracurricular_Score', 'Work_Life_Balance', 
+                'Field_of_Study_Business', 'Field_of_Study_Computer Science', 'Field_of_Study_Engineering', 'Field_of_Study_Law', 
+                'Field_of_Study_Mathematics', 'Field_of_Study_Medicine', 'Entrepreneur']
+    targets = ['Career_Success_Score_Scaled']
+
+    correlation_matrix = df[features + targets].corr()
+    input_vs_target = correlation_matrix.loc[features, targets]
+
+    plt.figure(figsize=(10, 6))
+    sns.heatmap(input_vs_target, annot=True, cmap='coolwarm', cbar=True, fmt='.2f')
+    plt.title("Inputs vs Target Career Success Comparison")
+    plt.tight_layout()
+    plt.show()
+
+    # Feature Importance: Gradient Boosting Regressor
+    coefficients = pd.Series(best_model.feature_importances_, index=X.columns)
+
+    plt.figure(figsize=(10, 6))
+    coefficients.sort_values().plot(kind='barh')
+    plt.title("Feature Importance from Gradient Boosting Regressor")
+    plt.xlabel("Feature Importance Score")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+    # Feature Importance: Lasso Regression
+    lasso_coefficients = pd.Series(lasso.coef_, index=X.columns)
+
+    plt.figure(figsize=(10, 6))
+    lasso_coefficients.sort_values().plot(kind='barh')
+    plt.title("Feature Importance from Lasso Regression")
+    plt.xlabel("Feature Importance Score")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
     
-        
+    
+
+
 
 
 
