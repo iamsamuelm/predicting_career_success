@@ -34,7 +34,7 @@ You can install them all using:
 pip install -r requirements.txt
 ```
 
-## ⚙️ Environment Setup
+## Environment Setup
 
 1. Clone the repository
    
@@ -57,7 +57,7 @@ venv\Scripts\activate     # For Windows
 pip install -r requirements.txt
 ```
 
-## 🛠️ Running the Data Processing Pipeline
+## Running the Data Processing Pipeline
 1. Make sure education_career_success.csv is placed in the project directory.
 2. Run the data processing script:
 
@@ -74,7 +74,7 @@ This script
 - Selects top features for model training
 - Exports processed data to `.csv`
 
-## 🧠 Evaluating Models
+## Evaluating Models
 
 After data preprocessing, run the model training script:
 
@@ -89,7 +89,7 @@ This will:
 - Output metrics like MAE, RMSE, and R²
 - Generate performance visualizations
 
-## 🔁 Reproducing Results
+## Reproducing Results
 
 To reproduce all results from scratch: 
 
@@ -104,7 +104,7 @@ Make sure:
 - Your environment includes all required packages
 - You are using a consistent random seed (`random_state=42` is set for reproducibility)
 
-## 📊 Visualizations
+## Visualizations
 
 To get initial data visualizations, run:
 
@@ -119,7 +119,7 @@ This creates:
 - Boxplots grouped by field of study
 - Scatter plots for key features vs outcomes
 
-## 💡 Key Takeaways
+## Key Takeaways
 
 This project provides data-driven insights into which factors most influence early career outcomes. The results empower stakeholders to invest effort in areas with the highest long-term ROI—academically and professionally. 
 
