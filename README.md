@@ -4,19 +4,19 @@
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
 </a>
 
-## 📌 Project Description
+## Project Description
 
 Career success is influenced by multiple factors, including academic performance, skills, and networking. However, students and job seekers often struggle to identify which aspects of their education and career development will have the greatest impact on their future success. 
 
 This project uses predictive analytics to explore how academic performance, internships, projects, and networking contribute to career success. Using a dataset of 5,000 student records—including university ranking, GPA, skills, and career outcomes—we develop models to predict:
 
-- 🎯 Career Satisfaction
-- 💼 Number of Job Offers
-- 💰 Starting Salary
+- Career Satisfaction
+- Number of Job Offers
+- Starting Salary
 
 The results offer actionable insights to help students, career advisors, and educators optimize educational and career development strategies.
 
-## 📦 Dependencies
+## Dependencies
 
 This project requires the following Python packages:
 
