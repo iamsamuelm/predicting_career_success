@@ -6,15 +6,18 @@
 
 ## Project Description
 
-Career success is influenced by multiple factors, including academic performance, skills, and networking. However, students and job seekers often struggle to identify which aspects of their education and career development will have the greatest impact on their future success. 
+Career success is shaped by a wide range of factors—from academic performance and hands-on experience to networking and personal development. Yet for students and job seekers, identifying which aspects of their educational journey most influence future outcomes remains an ongoing challenge.
 
-This project uses predictive analytics to explore how academic performance, internships, projects, and networking contribute to career success. Using a dataset of 5,000 student records—including university ranking, GPA, skills, and career outcomes—we develop models to predict:
+This project applies machine learning and predictive analytics to investigate how academic performance, internships, extracurricular involvement, and field of study contribute to early career success. Leveraging a dataset of 5,000 student records—including GPA, university ranking, skill assessments, and career outcomes—we engineered a holistic Composite Career Success Score that incorporates:
 
-- Career Satisfaction
-- Number of Job Offers
-- Starting Salary
+* Starting Salary
+* Number of Job Offers
+* Career Satisfaction
+* Time to First Promotion
 
-The results offer actionable insights to help students, career advisors, and educators optimize educational and career development strategies.
+Using this target, we developed and evaluated multiple models, including Lasso Regression, Gradient Boosting, and a PyTorch-based Neural Network. Although the models exhibited limited predictive power on an individual level (R² ≈ 0.00), their consistent low error rates (MAE ≈ 0.15) suggest value for identifying general trends across large student cohorts.
+
+The findings provide actionable insights for students, advisors, and educators seeking to optimize career development strategies, allocate support resources more effectively, and understand the nuanced limitations of algorithmic forecasting in human-centered domains.
 
 ## Dependencies
 
