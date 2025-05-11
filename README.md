@@ -79,7 +79,6 @@ This script
 - Encodes categorical features
 - Engineers new features
 - Scales numerical features
-- Selects top features for model training
 - Exports processed data to `.csv`
 
 ## Evaluating Models
@@ -87,12 +86,12 @@ This script
 After data preprocessing, run the model training script:
 
 ```
-python train.py
+python predict.py
 ```
 
 This will: 
 
-- Train predictive models for both Career Satisfaction and Starting Salary
+- Train predictive models
 - Use train/test splits for evaluation
 - Output metrics like MAE, RMSE, and R²
 - Generate performance visualizations
@@ -124,65 +123,55 @@ This creates:
 
 - Correlation heatmaps
 - Distributions of target variables
-- Boxplots grouped by field of study
+- Boxplots for various categorical variables
 - Scatter plots for key features vs outcomes
 
 ## Key Takeaways
 
 This project provides data-driven insights into which factors most influence early career outcomes. The results empower stakeholders to invest effort in areas with the highest long-term ROI—academically and professionally. 
 
-** The code in these files has to be updated. These instructions are for when I do.**
-
 
 ## Project Organization
 
 ```
-├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
 ├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
+│   └── processed/                         <- Cleaned and transformed data for modeling
 │
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
+├── docs
+│   ├── docs/                              <- MkDocs documentation source files
+│   ├── mkdocs.yml                         <- Configuration file for documentation site
+│   └── README.md                          <- Documentation landing page
 │
-├── models             <- Trained and serialized models, model predictions, or model summaries
+├── Makefile                               <- Build automation file for reproducible workflows
 │
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
+├── models
+│   ├── gradient_boosting_regressor.joblib <- Trained Gradient Boosting model
+│   ├── lasso_regression_model.joblib      <- Trained Lasso model
+│   └── pytorch_neural_network.pth         <- Trained PyTorch model
 │
-├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         Week 10 and configuration for tools like black
+├── notebooks
+│   └── sprint-2.ipynb                     <- Main notebook for EDA and modeling
 │
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
+├── pyproject.toml                         <- Project metadata and configuration
+├── README.md                              <- Project overview and setup instructions
 │
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
+├── references/                            <- Data dictionaries and supplementary materials
 │
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
+├── reports
+│   ├── figures/                           <- Visualizations used in reporting
+│   └── The Complexity of Success.pdf      <- Final project report
 │
-├── setup.cfg          <- Configuration file for flake8
+├── requirements.txt                       <- List of required Python packages
 │
-└── Week 10   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes Week 10 a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
+├── venv/                                  <- Virtual environment directory (should be in .gitignore)
+│
+└── Week_10/                                <- Source code and project logic
+    ├── __init__.py
+    ├── config.py                          <- Configuration variables
+    ├── dataset.py                         <- Data loading and preprocessing
+    ├── features.py                        <- Feature engineering
+    ├── modeling/                          <- Model training and prediction modules
+    └── plots.py                           <- Visualization and figure generation
 ```
 
 --------
