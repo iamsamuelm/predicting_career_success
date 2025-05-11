@@ -1,6 +1,12 @@
 pandas
 numpy
-scikit-learn
 matplotlib
 seaborn
-jupyter
+scikit-learn
+statsmodels
+joblib
+loguru
+tqdm
+typer
+torch
+missingno
