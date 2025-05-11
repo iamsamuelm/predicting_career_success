@@ -25,11 +25,16 @@ This project requires the following Python packages:
 
 - `pandas`
 - `numpy`
-- `scikit-learn`
-- `seaborn`
 - `matplotlib`
-- `tensorflow`
-- `keras-tuner`
+- `seaborn`
+- `scikit-learn`
+- `statsmodels`
+- `joblib`
+- `loguru`
+- `tqdm`
+- `typer`
+- `torch`
+- `missingno`
 
 You can install them all using:
 
